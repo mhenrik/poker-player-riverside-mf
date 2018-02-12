@@ -102,6 +102,11 @@ public class Player {
                 return ourPlayer.get("stack").getAsInt();
             }
         }
+        if(checkCommCards(json).size() == 4 || checkCommCards(json).size() == 5){
+            if(currentSuits.get(ourCardsSUIT.get(0)) == 5 || currentSuits.get(ourCardsSUIT.get(1)) == 5){
+                return ourPlayer.get("stack").getAsInt();
+            }
+        }
 
 
 
