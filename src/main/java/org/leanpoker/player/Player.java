@@ -39,6 +39,26 @@ public class Player {
         JsonObject ourPlayer = players.get(inAction).getAsJsonObject();
         int ourBet = ourPlayer.get("bet").getAsInt();
         int round = json.get("round").getAsInt();
+
+        int activeUsers = 0;
+        for (JsonElement player : players) {
+            JsonObject jsonPlayer = player.getAsJsonObject();
+            String status = jsonPlayer.get("status").getAsString();
+
+            if (status.equals("active")) {
+                activeUsers++;
+            }
+        }
+
+        if (activeUsers == 2) {
+            for (JsonElement player : players) {
+                JsonObject jsonPlayer = player.getAsJsonObject();
+                if (jsonPlayer.get("name").getAsString().equals("AceOfDiamonds")) {
+                    return currentBuyIn - ourBet + minRaise;
+                }
+            }
+        }
+
         if(currentRound < round){
             raised = false;
             currentRound = round;
