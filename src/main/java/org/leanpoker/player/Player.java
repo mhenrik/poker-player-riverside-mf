@@ -95,7 +95,7 @@ public class Player {
 
             }
 
-            return currentBuyIn - ourBet;
+            return 0;
         }
 
       //POSTFLOP
