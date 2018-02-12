@@ -119,7 +119,8 @@ public class Player {
 
             //
             if(currentSuits.get(ourCardsSUIT.get(0)) >= 4 || currentSuits.get(ourCardsSUIT.get(1)) >= 4){
-                return ourPlayer.get("stack").getAsInt();
+                return currentBuyIn - ourBet + minRaise;
+
             }//dasda
 
             int duplicateCard  = Collections.frequency(comCards, ourCards.get(0));
