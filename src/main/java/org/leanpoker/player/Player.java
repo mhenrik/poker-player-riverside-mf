@@ -134,6 +134,8 @@ public class Player {
                 if (highCards.contains(ourCards.get(0)) && highCards.contains(ourCards.get(1))){
 
                     return currentBuyIn - ourBet + minRaise;
+                } else if (minRaise < 20){
+                    return currentBuyIn - ourBet;
                 }
                 return 0;
 
