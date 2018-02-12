@@ -86,7 +86,12 @@ public class Player {
             }
 
             if (ourCardsSUIT.get(0).equals(ourCardsSUIT.get(1))){
-                return currentBuyIn - ourBet + minRaise;
+                if (highCards.contains(ourCards.get(0)) && highCards.contains(ourCards.get(1))){
+
+                    return currentBuyIn - ourBet + minRaise;
+                }
+                return 0;
+
 
             }
 
