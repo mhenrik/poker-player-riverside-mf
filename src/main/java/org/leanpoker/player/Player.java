@@ -110,6 +110,9 @@ public class Player {
         }
 
         if(checkCommCards(json).size() >= 3){
+            System.out.println(currentSuits.get(ourCardsSUIT.get(0)));
+
+            //
             if(currentSuits.get(ourCardsSUIT.get(0)) >= 4 || currentSuits.get(ourCardsSUIT.get(1)) >= 4){
                 return ourPlayer.get("stack").getAsInt();
             }//dasda
@@ -149,6 +152,32 @@ public class Player {
         return 0;
     }
 
+    public static boolean isTwoPair(List<String> allCards) {
+
+        List<Boolean> boolList = new ArrayList<>();
+        for (String card1 : allCards) {
+            int counter = -1;
+            for (String card2 : allCards) {
+                if (card1.equals(card2)) {
+                    counter++;
+                }
+            }
+            if(counter == 2) {
+                boolList.add(true);
+            } else {
+                boolList.add(false);
+            }
+        }
+
+        int pairs = 0;
+        for (Boolean bool : boolList) {
+            if (bool) {
+                pairs++;
+            }
+        }
+
+        return pairs == 2;
+    }
 
     public static List<String> checkOurCards(JsonObject ourPlayer){
         List<String> cardRanks = new ArrayList<>();
