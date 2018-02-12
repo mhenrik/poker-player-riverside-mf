@@ -10,6 +10,21 @@ public class Player {
 
     static final String VERSION = "ALL IN";
     static boolean WEGOOD = false;
+    static Map<String, Integer> cardValue = new HashMap<String, Integer>(){{
+        put("2", 2);
+        put("3", 3);
+        put("4", 4);
+        put("5", 5);
+        put("6", 6);
+        put("7", 7);
+        put("8", 8);
+        put("9", 9);
+        put("10", 10);
+        put("J", 11);
+        put("Q", 12);
+        put("K", 13);
+        put("A", 14);
+    }};
 
     public static int betRequest(JsonElement request) {
         System.out.println("TURN BEGINS");
@@ -38,17 +53,13 @@ public class Player {
         // get pot
         int pot = json.get("pot").getAsInt();
 
-        for(String card : comCards){
-            if(ourCards.get(0).equals(card) || ourCards.get(1).equals(card) || ourCards.get(0).equals(ourCards.get(1))){
-                System.out.println("GOT PAIR AFTER FLOP");
-                return ourPlayer.get("stack").getAsInt();
-            }
-        }
-
         // without community cards
         if(checkCommCards(json).size() == 0){
 
             if (highCards.contains(ourCards.get(0)) && highCards.contains(ourCards.get(1))) {
+                if (ourCards.get(0).equals(ourCards.get(1))){
+                    return ourPlayer.get("stack").getAsInt();
+                }
                 int toBet = currentBuyIn - ourBet + pot / 2;
                 int currentStack = ourPlayer.get("stack").getAsInt();
 
@@ -56,6 +67,7 @@ public class Player {
                     return currentStack;
                 }
                 return toBet;
+
             }
 
             if (highCards.contains(ourCards.get(0)) || highCards.contains(ourCards.get(1))) {
@@ -98,6 +110,14 @@ public class Player {
         }
 
         if(checkCommCards(json).size() == 3){
+            for(String card : comCards){
+                if (cardValue.get(card) > cardValue.get(ourCards.get(0)) || cardValue.get(card) > cardValue.get(ourCards.get(1))) {
+                    return 0;
+                }
+                if(ourCards.get(0).equals(card) || ourCards.get(1).equals(card) || ourCards.get(0).equals(ourCards.get(1))){
+                    return ourPlayer.get("stack").getAsInt();
+                }
+            }
             if(currentSuits.get(ourCardsSUIT.get(0)) >= 4 || currentSuits.get(ourCardsSUIT.get(1)) >= 4){
                 return ourPlayer.get("stack").getAsInt();
             }
@@ -167,6 +187,9 @@ public class Player {
 
         return cardRanks;
     }
+
+
+    //public static boolean straight
 
     public static void showdown(JsonElement game) {
     }
