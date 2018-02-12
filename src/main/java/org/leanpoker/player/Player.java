@@ -36,6 +36,15 @@ public class Player {
         JsonObject ourPlayer = players.get(inAction).getAsJsonObject();
         int ourBet = ourPlayer.get("bet").getAsInt();
 
+        int maxStack = 0;
+        for (JsonElement player : players) {
+            JsonObject jsonPlayer = player.getAsJsonObject();
+            int stack = jsonPlayer.get("stack").getAsInt();
+            if (stack > maxStack){
+                maxStack = stack;
+            }
+        }
+
         List<String> ourCards = checkOurCards(ourPlayer);
         List<String> comCards = checkCommCards(json);
 
@@ -58,7 +67,11 @@ public class Player {
 
             if (highCards.contains(ourCards.get(0)) && highCards.contains(ourCards.get(1))) {
                 if (ourCards.get(0).equals(ourCards.get(1))){
-                    return ourPlayer.get("stack").getAsInt();
+                    if (maxStack == ourPlayer.get("stack").getAsInt()){
+                        return ourPlayer.get("stack").getAsInt();
+                    }
+                    return currentBuyIn - ourBet + minRaise;
+
                 }
                 int toBet = currentBuyIn - ourBet + pot / 2;
                 int currentStack = ourPlayer.get("stack").getAsInt();
