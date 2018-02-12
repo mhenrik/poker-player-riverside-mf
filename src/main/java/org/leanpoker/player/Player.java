@@ -109,7 +109,7 @@ public class Player {
             currentSuits.put(cardSuit, (currentSuits.get(cardSuit)+1));
         }
 
-        if(checkCommCards(json).size() == 3){
+        if(checkCommCards(json).size() >= 3){
             for(String card : comCards){
                 if (cardValue.get(card) > cardValue.get(ourCards.get(0)) || cardValue.get(card) > cardValue.get(ourCards.get(1))) {
                     return 0;
@@ -121,11 +121,27 @@ public class Player {
             if(currentSuits.get(ourCardsSUIT.get(0)) >= 4 || currentSuits.get(ourCardsSUIT.get(1)) >= 4){
                 return ourPlayer.get("stack").getAsInt();
             }
+
+            int duplicateCard  = Collections.frequency(comCards, ourCards.get(0));
+            int duplicateCard2 = Collections.frequency(comCards, ourCards.get(1));
+
+            if(duplicateCard >= 2 || duplicateCard2 >= 2){
+                return ourPlayer.get("stack").getAsInt();
+
+            }
+
+            for (String card : comCards) {
+                if (ourCards.get(0).equals(ourCards.get(1)) && card.equals(ourCards.get(0))){
+                    return ourPlayer.get("stack").getAsInt();
+                }
+
+            }
         }
-        if(checkCommCards(json).size() == 4 || checkCommCards(json).size() == 5){
-            if(currentSuits.get(ourCardsSUIT.get(0)) == 5 || currentSuits.get(ourCardsSUIT.get(1)) == 5){
+        if(checkCommCards(json).size() == 4 || checkCommCards(json).size() == 5) {
+            if (currentSuits.get(ourCardsSUIT.get(0)) == 5 || currentSuits.get(ourCardsSUIT.get(1)) == 5) {
                 return ourPlayer.get("stack").getAsInt();
             }
+
         }
 
 
@@ -189,7 +205,19 @@ public class Player {
     }
 
 
-    //public static boolean straight
+
+
+/*    public static boolean straightChecker(List<String> ourcards, List<String> comcards){
+        int cardvalue1 = cardValue.get(ourcards.get(0));
+        int cardvalue2 = cardValue.get(ourcards.get(2));
+
+        if (Math.abs(cardvalue1 - cardvalue2) < 2){
+
+        }
+
+    }*/
+
+
 
     public static void showdown(JsonElement game) {
     }
