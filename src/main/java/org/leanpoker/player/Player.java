@@ -114,7 +114,7 @@ public class Player {
             currentSuits.put(cardSuit, (currentSuits.get(cardSuit)+1));
         }
 
-        if(checkCommCards(json).size() >= 3){
+        if(checkCommCards(json).size() == 3){
             System.out.println(currentSuits.get(ourCardsSUIT.get(0)));
 
             //
@@ -149,6 +149,22 @@ public class Player {
             if (currentSuits.get(ourCardsSUIT.get(0)) == 5 || currentSuits.get(ourCardsSUIT.get(1)) == 5) {
                 return ourPlayer.get("stack").getAsInt();
             }
+
+            int duplicateCard  = Collections.frequency(comCards, ourCards.get(0));
+            int duplicateCard2 = Collections.frequency(comCards, ourCards.get(1));
+
+            if(duplicateCard >= 2 || duplicateCard2 >= 2){
+                return ourPlayer.get("stack").getAsInt();
+
+            }
+
+            for (String card : comCards) {
+                if (ourCards.get(0).equals(ourCards.get(1)) && card.equals(ourCards.get(0))){
+                    return ourPlayer.get("stack").getAsInt();
+                }
+
+            }
+
 
         }
 
