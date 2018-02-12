@@ -25,11 +25,14 @@ public class Player {
         List<String> comCards = checkCommCards(json);
 
         for(String card : comCards){
-            if(ourCards.get(0).equals(card) || ourCards.get(1).equals(card)){
+            if(ourCards.get(0).equals(card) || ourCards.get(1).equals(card) || ourCards.get(0).equals(ourCards.get(1))){
                 return ourPlayer.get("stack").getAsInt();
             }
         }
 
+        if(checkCommCards(json).size() == 0){
+            return currentBuyIn - ourBet;
+        }
 
         return currentBuyIn - ourBet + minRaise;
     }
