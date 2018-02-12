@@ -110,17 +110,9 @@ public class Player {
         }
 
         if(checkCommCards(json).size() >= 3){
-            for(String card : comCards){
-                if (cardValue.get(card) > cardValue.get(ourCards.get(0)) || cardValue.get(card) > cardValue.get(ourCards.get(1))) {
-                    return 0;
-                }
-                if(ourCards.get(0).equals(card) || ourCards.get(1).equals(card) || ourCards.get(0).equals(ourCards.get(1))){
-                    return ourPlayer.get("stack").getAsInt();
-                }
-            }
             if(currentSuits.get(ourCardsSUIT.get(0)) >= 4 || currentSuits.get(ourCardsSUIT.get(1)) >= 4){
                 return ourPlayer.get("stack").getAsInt();
-            }
+            }//dasda
 
             int duplicateCard  = Collections.frequency(comCards, ourCards.get(0));
             int duplicateCard2 = Collections.frequency(comCards, ourCards.get(1));
@@ -135,6 +127,14 @@ public class Player {
                     return ourPlayer.get("stack").getAsInt();
                 }
 
+            }
+            for(String card : comCards){
+                if (cardValue.get(card) > cardValue.get(ourCards.get(0)) && cardValue.get(card) > cardValue.get(ourCards.get(1))) {
+                    return 0;
+                }
+                if(ourCards.get(0).equals(card) || ourCards.get(1).equals(card) || ourCards.get(0).equals(ourCards.get(1))){
+                    return ourPlayer.get("stack").getAsInt();
+                }
             }
         }
         if(checkCommCards(json).size() == 4 || checkCommCards(json).size() == 5) {
