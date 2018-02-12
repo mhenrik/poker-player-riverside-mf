@@ -9,6 +9,7 @@ import java.util.*;
 public class Player {
 
     static final String VERSION = "Default Java folding player";
+    static boolean WEGOOD = false;
 
     public static int betRequest(JsonElement request) {
         System.out.println("TURN BEGINS");
@@ -33,7 +34,6 @@ public class Player {
         highCards.add("Q");
         highCards.add("J");
         highCards.add("10");
-        highCards.add("9");
 
         // get pot
         int pot = json.get("pot").getAsInt();
