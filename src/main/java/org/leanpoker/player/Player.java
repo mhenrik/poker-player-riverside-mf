@@ -8,7 +8,7 @@ import java.util.*;
 
 public class Player {
 
-    static final String VERSION = "Default Java folding player";
+    static final String VERSION = "ALL IN";
     static boolean WEGOOD = false;
 
     public static int betRequest(JsonElement request) {
