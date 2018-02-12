@@ -10,6 +10,7 @@ public class Player {
 
     static final String VERSION = "ALL IN";
     static boolean raised = false;
+    static int currentRound;
     static Map<String, Integer> cardValue = new HashMap<String, Integer>(){{
         put("2", 2);
         put("3", 3);
@@ -27,6 +28,8 @@ public class Player {
     }};
 
     public static int betRequest(JsonElement request) {
+
+
         System.out.println("TURN BEGINS");
         JsonObject json = request.getAsJsonObject();
         int minRaise = json.get("minimum_raise").getAsInt();
@@ -35,7 +38,11 @@ public class Player {
         int inAction = json.get("in_action").getAsInt();
         JsonObject ourPlayer = players.get(inAction).getAsJsonObject();
         int ourBet = ourPlayer.get("bet").getAsInt();
-
+        int round = json.get("round").getAsInt();
+        if(currentRound < round){
+            raised = false;
+            currentRound = round;
+        }
 
         int maxStack = 0;
         for (JsonElement player : players) {
@@ -71,6 +78,10 @@ public class Player {
                     if (maxStack == ourPlayer.get("stack").getAsInt()){
                         return ourPlayer.get("stack").getAsInt();
                     }
+                    if(raised){
+                        return 0;
+                    }
+                    raised = true;
                     return currentBuyIn - ourBet + minRaise;
 
                 }
