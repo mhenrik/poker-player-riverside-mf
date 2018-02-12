@@ -11,6 +11,7 @@ public class Player {
     static final String VERSION = "Default Java folding player";
 
     public static int betRequest(JsonElement request) {
+        System.out.println("TURN BEGINS");
         JsonObject json = request.getAsJsonObject();
         int minRaise = json.get("minimum_raise").getAsInt();
         int currentBuyIn = json.get("current_buy_in").getAsInt();
@@ -37,6 +38,14 @@ public class Player {
         // get pot
         int pot = json.get("pot").getAsInt();
 
+
+        for(String card : comCards){
+            if(ourCards.get(0).equals(card) || ourCards.get(1).equals(card) || ourCards.get(0).equals(ourCards.get(1))){
+                System.out.println("GOT PAIR AFTER FLOP");
+                return ourPlayer.get("stack").getAsInt();
+            }
+        }
+        
         // without community cards
         if(checkCommCards(json).size() == 0){
 
@@ -73,15 +82,26 @@ public class Player {
             return currentBuyIn - ourBet;
         }
 
-      /*  //POSTFLOP
-        Map<String, Integer>  = new HashMap<>();
-        for(String card : comCards){
-            if(ourCards.get(0).equals(card) || ourCards.get(1).equals(card) || ourCards.get(0).equals(ourCards.get(1))){
-                return ourPlayer.get("stack").getAsInt();
-            }
-            if(s)
+      //POSTFLOP
+        if(checkCommCards(json).size() == 3){
+
         }
-*/
+        Map<String, Integer> currentSuits = new HashMap<String, Integer>(){{
+            put("spades", 0);
+            put("hearts", 0);
+            put("clubs", 0);
+            put("diamonds", 0);
+        }};
+
+        currentSuits.put(ourCardsSUIT.get(0), (currentSuits.get(ourCardsSUIT.get(0))+1));
+        currentSuits.put(ourCardsSUIT.get(1), (currentSuits.get(ourCardsSUIT.get(1))+1));
+
+        for(String cardSuit : comCardsSUIT){
+            currentSuits.put(cardSuit, (currentSuits.get(cardSuit)+1));
+        }
+
+
+
 
 
         return 0;
