@@ -40,7 +40,7 @@ public class Player {
         int ourBet = ourPlayer.get("bet").getAsInt();
         int round = json.get("round").getAsInt();
 
-        int activeUsers = 0;
+        /*int activeUsers = 0;
         for (JsonElement player : players) {
             JsonObject jsonPlayer = player.getAsJsonObject();
             String status = jsonPlayer.get("status").getAsString();
@@ -58,7 +58,7 @@ public class Player {
                 }
             }
         }
-
+*/
         if(currentRound < round){
             raised = false;
             currentRound = round;
