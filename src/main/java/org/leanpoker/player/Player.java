@@ -38,14 +38,13 @@ public class Player {
         // get pot
         int pot = json.get("pot").getAsInt();
 
-
         for(String card : comCards){
             if(ourCards.get(0).equals(card) || ourCards.get(1).equals(card) || ourCards.get(0).equals(ourCards.get(1))){
                 System.out.println("GOT PAIR AFTER FLOP");
                 return ourPlayer.get("stack").getAsInt();
             }
         }
-        
+
         // without community cards
         if(checkCommCards(json).size() == 0){
 
@@ -83,9 +82,7 @@ public class Player {
         }
 
       //POSTFLOP
-        if(checkCommCards(json).size() == 3){
 
-        }
         Map<String, Integer> currentSuits = new HashMap<String, Integer>(){{
             put("spades", 0);
             put("hearts", 0);
@@ -100,7 +97,11 @@ public class Player {
             currentSuits.put(cardSuit, (currentSuits.get(cardSuit)+1));
         }
 
-
+        if(checkCommCards(json).size() == 3){
+            if(currentSuits.get(ourCardsSUIT.get(0)) >= 4 || currentSuits.get(ourCardsSUIT.get(1)) >= 4){
+                return ourPlayer.get("stack").getAsInt();
+            }
+        }
 
 
 
