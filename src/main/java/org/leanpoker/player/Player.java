@@ -9,7 +9,7 @@ import java.util.*;
 public class Player {
 
     static final String VERSION = "ALL IN";
-    static boolean WEGOOD = false;
+    static boolean raised = false;
     static Map<String, Integer> cardValue = new HashMap<String, Integer>(){{
         put("2", 2);
         put("3", 3);
@@ -35,6 +35,7 @@ public class Player {
         int inAction = json.get("in_action").getAsInt();
         JsonObject ourPlayer = players.get(inAction).getAsJsonObject();
         int ourBet = ourPlayer.get("bet").getAsInt();
+
 
         int maxStack = 0;
         for (JsonElement player : players) {
@@ -83,7 +84,7 @@ public class Player {
 
             }
 
-            if (highCards.contains(ourCards.get(0)) || highCards.contains(ourCards.get(1))) {
+            /*if (highCards.contains(ourCards.get(0)) || highCards.contains(ourCards.get(1))) {
                 int toBet = currentBuyIn - ourBet + pot / 3;
                 int currentStack = ourPlayer.get("stack").getAsInt();
 
@@ -97,7 +98,7 @@ public class Player {
 
                 return toBet;
             }
-
+*/
             if (ourCardsSUIT.get(0).equals(ourCardsSUIT.get(1))){
                 if (highCards.contains(ourCards.get(0)) && highCards.contains(ourCards.get(1))){
 
